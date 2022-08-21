@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "321167373955",
+    "project_id": "kaizerver3",
+    "storage_bucket": "kaizerver3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321167373955:android:9b06b76ba7c6db93178db6",
+        "android_client_info": {
+          "package_name": "team.diamond.kaizer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321167373955-4tnpj2kh7t1fhjv24bbki4afq5mdkuop.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXMXBpVFCz36s4l-ybhnqSozo-bFzoXHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321167373955-4tnpj2kh7t1fhjv24bbki4afq5mdkuop.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
