@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewActivity">
+    tools:context=".foto.NewActivity">
 
 
     <ScrollView
@@ -21,7 +21,7 @@
             <ImageView
 
                 android:id="@+id/fullImageView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"

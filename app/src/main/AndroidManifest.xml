@@ -27,40 +27,63 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".creatQuestion"
+            android:name=".startTest.startTest"
             android:exported="false" />
         <activity
-            android:name=".startBelka"
+            android:name=".startTest.startTestver2"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".LoadingQuest"
+            android:name=".kaizerActivity"
             android:exported="true" />
         <activity
-            android:name=".answerBelka"
+            android:name=".startTest.LoadingQuest"
+            android:exported="true" />
+        <activity
+            android:name=".startTest.LoadingQuestver2"
+            android:exported="true" />
+        <activity
+            android:name=".otvetTest.otvetTestBasic"
             android:exported="true" />
         <activity
             android:name=".profileId"
             android:exported="false" />
         <activity
-            android:name=".FotoPublic"
+            android:name=".foto.FotoPublic"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".foto.showFoto"
             android:exported="false" />
         <activity
-            android:name=".NewActivity"
+            android:name=".foto.NewActivity"
             android:exported="false" />
         <activity
-            android:name=".stories"
+            android:name=".addStories"
             android:exported="false" />
-
-
+        <activity
+            android:name=".otvetTest.youOtvetTest"
+            android:exported="false" />
+        <activity
+            android:name=".storiesFullShema.readStories"
+            android:exported="false" />
+        <activity
+            android:name=".job.job"
+            android:exported="false" />
+        <activity
+            android:name=".job.jobAdd"
+            android:exported="false" />
+        <activity
+            android:name=".allusers.AllUsers"
+            android:exported="false" />
+        <activity
+            android:name=".profile.profileBalance"
+            android:exported="false" />
+        <activity
+            android:name=".startTest.AllTests"
+            android:exported="false" />
+        <activity
+            android:name=".creatTest.creatTest"
+            android:exported="false" />
     </application>
 
 </manifest>

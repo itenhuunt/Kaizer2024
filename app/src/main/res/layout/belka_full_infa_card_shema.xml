@@ -37,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="37dp"
                 android:fontFamily="@font/bangers"
-
                 android:text="belka_id"
                 android:textColor="@color/black"
                 android:textSize="21sp" />
@@ -70,6 +69,13 @@
                 android:layout_marginLeft="17dp"
                 android:text="reply1" />
         </LinearLayout>
+        <Button
+            android:id="@+id/btndeleteanswertest"
+            android:layout_below="@+id/storiesread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="delete" />
 
     </LinearLayout>
 

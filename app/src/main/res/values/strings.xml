@@ -2,11 +2,29 @@
     <string name="app_name">Kaizer</string>
 
     <string name="about_me">обо мне</string>
+    <string name="basic_test">базовый тест</string>
+    <string name="answertest">ответы </string>
     <string name="download">Загружено скоро ознакомлюсь</string>
-
-
-
-
+    <string name="tasks">Задания</string>
+    <string name="test">Тест</string>
+    <string name="answerGirl">Ответы белок</string>
+    <string name="creatQeustTxt">создать вопрос</string>
+    <string name="startQuestion">пройти опрос</string>
+    <string name="readMystery">читать рассказы</string>
+    <string name="more">Больше</string>
+    <string name="recentlyJoined">Недавно присоединились</string>
+    <string name="readstories">Читать выдуманные истории )</string>
+    <string name="addstoriesuser">рассказ</string>
+    <string name="addstoriesuserdescription">добавить</string>
+    <string name="job">задания</string>
+    <string name="recentlyjoined">недавно присоединились</string>
+    <string name="seejob">смотреть последния задания</string>
+    <string name="pay">твоя выплата</string>
+    <string name="testhasalreadypassed">тест уже был пройдет</string>
+    <string name="you_balance">твой баланс</string>
+    <string name="money">Money</string>
+    <string name="creattest">создать тест</string>
+    <string name="requestpayout">запросить выплату</string>
 
 
 </resources>

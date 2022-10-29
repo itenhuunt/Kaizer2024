@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/nameboss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="nameboss"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:id="@+id/job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameboss"
+            android:text="job"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:id="@+id/jobreward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job"
+            android:layout_marginRight="9dp"
+            android:text="reward"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/jobdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/jobreward"
+            android:layout_marginTop="10dp"
+            android:text="jobdescription"
+            android:textColor="@color/black" />
+
+
+        <Button
+            android:id="@+id/btndeletejob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/jobdescription"
+            android:layout_alignParentRight="true"
+            android:text="delete" />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -4,16 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".answerBelka">
+    android:background="@drawable/round_back_theeme_1000"
+    tools:context=".storiesFullShema.readStories">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@drawable/vibostyle"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+            android:text="@string/answerGirl"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_all_belka"
@@ -24,8 +48,8 @@
 
 
         </LinearLayout>
-    </ScrollView>
 
+    </ScrollView>
 
 
 

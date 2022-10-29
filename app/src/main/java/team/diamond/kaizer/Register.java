@@ -31,7 +31,7 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+        setContentView(R.layout.registerver2);
 
 
         user_name_shared_preferences = getSharedPreferences("teen_pref", MODE_PRIVATE); //обяъвляем приватный режим + прописываем ИМЯ в xml (.xml так и будет называться) + приватный режим
@@ -51,7 +51,7 @@ public class Register extends AppCompatActivity {
         //chek if user already logged in
         if (!team.diamond.kaizer.MemoryData.getData(this).isEmpty()) {
 
-            Intent intent = new Intent(Register.this, team.diamond.kaizer.MainActivity.class);
+            Intent intent = new Intent(Register.this, kaizerActivity.class);
             intent.putExtra("mobile", team.diamond.kaizer.MemoryData.getData(this));    //зачем вытаскиваем ??? телефон / имя / почту
             intent.putExtra("name", team.diamond.kaizer.MemoryData.getName(this));    //  указываем ТОЧНОЕ ЗНАЧЕНИЕ
             //    intent.putExtra("email","emailTxt");      //  т.к. оно будет вытаскиваться в MainActivity.class
@@ -83,13 +83,19 @@ public class Register extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                             progressDialog.dismiss();
+                            if(snapshot.child("users").hasChild(nameTxt)){
+                                Toast.makeText(Register.this, "Name alredy exists", Toast.LENGTH_SHORT).show();
 
-                            if (snapshot.child("users").hasChild(mobileTxt)) {    // если имеет снимок  mobileTxt  в  users  показывает сообщение
-                                Toast.makeText(Register.this, "Mobile alredy exists", Toast.LENGTH_SHORT).show();
+//                            if (snapshot.child("users").hasChild(mobileTxt)) {    // если имеет снимок  mobileTxt  в  users  показывает сообщение
+//                                Toast.makeText(Register.this, "Mobile alredy exists", Toast.LENGTH_SHORT).show();
+//                            } else if (snapshot.child("users").hasChild(nameTxt)) {
+//                                Toast.makeText(Register.this, "Name alredy exists", Toast.LENGTH_SHORT).show();
                             } else {
-                                databaseReference.child("users").child(mobileTxt).child("email").setValue(emailTxt);
-                                databaseReference.child("users").child(mobileTxt).child("name").setValue(nameTxt);
-                                databaseReference.child("users").child(mobileTxt).child("profile_pic").setValue("");
+                                databaseReference.child("users").child(nameTxt).child("email").setValue(emailTxt);
+                                databaseReference.child("users").child(nameTxt).child("name").setValue(nameTxt);
+                                databaseReference.child("users").child(nameTxt).child("mobile").setValue(mobileTxt);
+
+                                databaseReference.child("users").child(nameTxt).child("profile_pic").setValue("");
 
                                 inkognito = nameTxt;
 
@@ -106,10 +112,12 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "Success", Toast.LENGTH_SHORT).show();
 
 
-                                Intent intent = new Intent(Register.this, team.diamond.kaizer.MainActivity.class);
-                                intent.putExtra("mobile", mobileTxt);    //зачем вытаскиваем ??? телефон / имя / почту
-                                intent.putExtra("name", nameTxt);    //  указываем ТОЧНОЕ ЗНАЧЕНИЕ
-                                intent.putExtra("email", emailTxt);      //  т.к. оно будет вытаскиваться в MainActivity.class
+                                Intent intent = new Intent(Register.this, kaizerActivity.class);
+                                //удалил  т.к. оно не используется на втором слое
+                                // нет стоп моэно вытащить их насколько я понял  возможно
+//                                intent.putExtra("mobile", mobileTxt);    //зачем вытаскиваем ??? телефон / имя / почту
+//                                intent.putExtra("name", nameTxt);    //  указываем ТОЧНОЕ ЗНАЧЕНИЕ
+//                                intent.putExtra("email", emailTxt);      //  т.к. оно будет вытаскиваться в MainActivity.class
 
 
                                 startActivity(intent);

@@ -17,13 +17,14 @@
     <color name="serbIu">#14000000</color>
 
 
-
-
     <color name="vibobackground">#03cbc8</color>
     <color name="vibobackground2">#ededed</color>
     <color name="vibobatxtcolor">#1bc1bd</color>
     <color name="vibobatxtcolor2">#818181</color>
     <color name="vibobatxtcolor3">#696969</color>
+
+    <color name="katebackg">#212121</color>
+    <color name="katebtnreg">#226d94</color>
 
     <color name="pg_1">#4cb5f5</color>
     <color name="pg_2">#81c7f3</color>
@@ -35,4 +36,6 @@
     <color name="transparent">#00ffffff</color>
     <color name="azure">#6cc6cb</color>
     <color name="grey_blue">#141d2c</color>
+    <color name="gold">#ffd700</color>
+
 </resources>
