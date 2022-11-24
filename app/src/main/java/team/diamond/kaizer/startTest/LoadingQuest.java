@@ -33,38 +33,29 @@ public class LoadingQuest extends AppCompatActivity {
         list = new ArrayList<>();   // объявляем множество листов
 
         //         тут прописываем ТОЖЕ самое что на сайте
-        databaseReference = FirebaseDatabase.getInstance().getReference("QuestBelka");
+     //  databaseReference = FirebaseDatabase.getInstance().getReference("BasicTest");
+        databaseReference = FirebaseDatabase.getInstance().getReference("random");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     testModel modelclass = dataSnapshot.getValue(testModel.class);
                     list.add(modelclass);
                 }
-
                 Intent intent = new Intent(LoadingQuest.this, startTest.class);
                 startActivity(intent);
-
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-        //используем databaseReference
-//        list.add(new Modelclass("3wef","gfgdfgd","gfhfghfg","gdfghdfg"));
-//        list.add(new Modelclass("3wef111","gfgdfgd111","gfhfghfg111","gdfghdfg111"));
-//        list.add(new Modelclass("3wef222","gfgdfgd222","gfhfghfg222","gdfghdfg222"));
 
         //главная страница + код задержки через некоторое время
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-           //     startActivity(new Intent(MainActivity.this,universal_qestions.class));
-
-
+                //     startActivity(new Intent(MainActivity.this,universal_qestions.class));
             }
         }, 850);
 

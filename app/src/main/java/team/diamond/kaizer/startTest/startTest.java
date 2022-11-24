@@ -10,11 +10,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,16 +32,19 @@ import team.diamond.kaizer.kaizerActivity;
 
 public class startTest extends AppCompatActivity {
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseRefBalanceInf;
+    DatabaseReference databaseRefBalanceInf2;
 
     public String inkognito;
     private SharedPreferences user_name_shared_preferences;
     private SharedPreferences pay;
     int payments = 0;
+    int lvl = 0;
 
 
     private SharedPreferences Oneraz;
     int Oneraz1 = 0;
-
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaizerver3-default-rtdb.firebaseio.com/");
 
@@ -45,18 +55,20 @@ public class startTest extends AppCompatActivity {
     TextInputLayout txtanswer4;
     EditText txtanswer4ver2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_test);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+
         user_name_shared_preferences = getSharedPreferences("teen_pref", MODE_PRIVATE); //обяъвляем приватный режим для ОЧКОВ + прописываем ИМЯ в xml (чxml так и будет называться) + приватный режим
         inkognito = user_name_shared_preferences.getString("teen_name", inkognito);// пишем ВПЕРЕДИ  т.к. код исполняется по порядку + в этом xml опять пишем наши очки под именем которое задаем save_key_count
 
-
         pay = getSharedPreferences("pay", MODE_PRIVATE); // объявляем переменную pay
         payments = pay.getInt("payment_for_basic_test", 0); //  в переменной pay  пишем  "payment_for_basic_test"
+        lvl = pay.getInt("lvl_for_basic_test", 0); //  в переменной pay  пишем  "payment_for_basic_test"
 
 
         Oneraz = getSharedPreferences("Oneraz", MODE_PRIVATE); // объявляем переменную pay
@@ -75,7 +87,6 @@ public class startTest extends AppCompatActivity {
 
         // и только потом присваиваем вопросы  по id
         setAllData();   // почему потом ?  СУКА ЭТО ПИШЕТСЯ ПОСЛЕ !!!
-
 
         answer1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,18 +159,52 @@ public class startTest extends AppCompatActivity {
 
             SharedPreferences.Editor editor = pay.edit();
             editor.putInt("payment_for_basic_test", 50);
+            editor.putInt("lvl_for_basic_test", 1);
             editor.commit();
             payments = pay.getInt("payment_for_basic_test", 0);
+            lvl = pay.getInt("lvl_for_basic_test", 0);
 
             SharedPreferences.Editor editor2 = Oneraz.edit();
             editor2.putInt("Oneraz1", 1);
             editor2.commit();
             Oneraz1 = pay.getInt("Oneraz1", 0);
+            //старый вариант
+//            databaseRefBalanceInf = firebaseDatabase.getReference("users").child(inkognito).child("balance");
+//            databaseRefBalanceInf.setValue(payments);
+//            //  databaseRefBalanceInf.setValue(payments + 200);
+//            databaseRefBalanceInf2 = firebaseDatabase.getReference("users").child(inkognito).child("lvl");
+//            databaseRefBalanceInf2.setValue(lvl);
+
+
+            // пополнение баланса на 50
+            add1Balance();
+            // увеливаем уровень за прохождение теста на + 1 LVL
+            aad1LVL();
 
             Intent intent = new Intent(startTest.this, AllTests.class);
             startActivity(intent);
             finish();
         }
+    }
+
+    //увеличиваем уровень на + 1 LVL  за прохождение базового теста
+    private void aad1LVL() {
+        //загрузка ссылки на баланс
+        databaseRefBalanceInf2 = firebaseDatabase.getReference("users").child(inkognito).child("lvl");
+        //  увеличиваем баланс на 50
+        databaseRefBalanceInf2.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                Integer infLvl = currentData.getValue(Integer.class);
+                currentData.setValue(infLvl + 1);
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+            }
+        });
     }
 
 
@@ -211,6 +256,25 @@ public class startTest extends AppCompatActivity {
         answer4 = findViewById(R.id.answer4);
         txtanswer4 = findViewById(R.id.txtanswer4);
         txtanswer4ver2 = findViewById(R.id.txtanswer4ver2);
+    }
+
+    private void add1Balance() {
+        //загрузка ссылки на баланс
+        databaseRefBalanceInf = firebaseDatabase.getReference("users").child(inkognito).child("balance");
+        //  увеличиваем баланс на 50
+        databaseRefBalanceInf.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                Integer infLvl = currentData.getValue(Integer.class);
+                currentData.setValue(infLvl + 50);
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+            }
+        });
     }
 
 

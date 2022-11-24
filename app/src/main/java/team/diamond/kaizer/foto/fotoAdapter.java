@@ -15,13 +15,13 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import team.diamond.kaizer.R;
+import team.diamond.kaizer.foto2.NewActivity;
 
 public class fotoAdapter extends RecyclerView.Adapter<fotoAdapter.ViewHolder> {
 
 
     private Context context;
     private ArrayList<fotoModel> imageModelArrayList;
-
 
 
     public fotoAdapter(Context context, ArrayList<fotoModel> imageModelArrayList) {
@@ -43,8 +43,6 @@ public class fotoAdapter extends RecyclerView.Adapter<fotoAdapter.ViewHolder> {
     }
 
 
-
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -58,7 +56,7 @@ public class fotoAdapter extends RecyclerView.Adapter<fotoAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, NewActivity.class);
+                Intent intent = new Intent(context, NewActivity2.class);
                 intent.putExtra("image@#", imageModelArrayList.get(position).getImageurl());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -67,16 +65,15 @@ public class fotoAdapter extends RecyclerView.Adapter<fotoAdapter.ViewHolder> {
     }
 
 
-
     @Override
     public int getItemCount() {
         return imageModelArrayList.size();
     }
 
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

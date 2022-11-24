@@ -48,15 +48,16 @@ public class FotoPublic extends AppCompatActivity {
 
     private StorageReference storageReference = null;
     private DatabaseReference databaseReference = null;
-    private ProgressBar progressBar;
-    private ImageView imagePreview;
+
+    private ImageView imagePreview, addFoto, downloadFoto;
     private Uri filePath = null;
 
-    private final int PICK_IMAGE_GALLERY_CODE = 78;
-    private final int CAMERA_PERMISSION_REQUEST_CODE = 12345;
-    private final int CAMERA_PICTURE_REQUEST_CODE = 56789;
+    private final int PICK_IMAGE_GALLERY_CODE = 100;
+    private final int CAMERA_PERMISSION_REQUEST_CODE = 200;
+    private final int CAMERA_PICTURE_REQUEST_CODE = 300;
 
     public String inkognito;
+
     private SharedPreferences user_name_shared_preferences;
 
     private RecyclerView recyclerView;
@@ -64,34 +65,21 @@ public class FotoPublic extends AppCompatActivity {
     private fotoAdapter recyclerImageAdapter;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.foto_public);
+        setContentView(R.layout.foto_public2);
 
         user_name_shared_preferences = getSharedPreferences("teen_pref", MODE_PRIVATE); //обяъвляем приватный режим для ОЧКОВ + прописываем ИМЯ в xml (чxml так и будет называться) + приватный режим
         inkognito = user_name_shared_preferences.getString("teen_name", inkognito);// пишем ВПЕРЕДИ  т.к. код исполняется по порядку + в этом xml опять пишем наши очки под именем которое задаем save_key_count
 
+        hooks();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+
         databaseReference = database.getReference().child(inkognito);   //  Realtime Database    Reference  == Ссылка
         storageReference = firebaseStorage.getReference();
-
-        TextView addFoto = findViewById(R.id.addFoto);
-        TextView downloadFoto = findViewById(R.id.downloadFoto);
-        TextView showdownload = findViewById(R.id.showdownload);
-
-//
-//        Button selectButton = findViewById(R.id.selectButton);
-//        Button uploadButton = findViewById(R.id.uploadButton);
-//        TextView txt_view_show_upload = findViewById(R.id.txt_view_show_upload);
-
-//
-        imagePreview = findViewById(R.id.imagePreview);
-//        progressBar = findViewById(R.id.progressBar);
 
 
         // кнопка выбрать фото начало
@@ -99,85 +87,60 @@ public class FotoPublic extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showImageSelectedDialog();
-
             }
         });
         // кнопка выбрать фото конец
-
 
         // кнопка загрузить  фото начало
         downloadFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadImage();
-
             }
         });
         // кнопка загрузить  фото конец
 
-
-
-
-        // кнопка показать фото начало
-        showdownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FotoPublic.this, showFoto.class));
-            }
-        });
-        // кнопка показать фото конец
-
-        recyclerView = findViewById(R.id.recyclerView);
-
-//        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
-//        recyclerView.setHasFixedSize(true);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recyclerImageAdapter);
-
         imageModelArrayList = new ArrayList<>();
 
         clearAll();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(inkognito);
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 clearAll();
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     fotoModel imageModel = new fotoModel();
                     imageModel.setImageurl(snapshot.getValue().toString());
-
                     imageModelArrayList.add(imageModel);
-
                 }
-
-                recyclerImageAdapter = new fotoAdapter(getApplicationContext(),imageModelArrayList);
+                recyclerImageAdapter = new fotoAdapter(getApplicationContext(), imageModelArrayList);
                 recyclerView.setAdapter(recyclerImageAdapter);
                 recyclerImageAdapter.notifyDataSetChanged();
-
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(FotoPublic.this, "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
 
+    }
 
-
+    private void hooks() {
+        recyclerView = findViewById(R.id.recyclerView);
+        addFoto = findViewById(R.id.addFoto);
+        downloadFoto = findViewById(R.id.downloadFoto);
+        imagePreview = findViewById(R.id.imagePreview);
     }
 
     //---------------------------------------
     private void uploadImage() {
         if (filePath != null) {
-
-            StorageReference ref = storageReference.child(inkognito + "/" + UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child(inkognito + "/" + UUID.randomUUID().toString()); //инфу можно изменить на дату загрузки
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -185,8 +148,7 @@ public class FotoPublic extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             databaseReference.push().setValue(uri.toString());
-                            Toast.makeText(FotoPublic.this, "sucssef upload", Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(FotoPublic.this, " обновление ", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -195,11 +157,9 @@ public class FotoPublic extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
 
                     Toast.makeText(FotoPublic.this, "fail uploaded", Toast.LENGTH_SHORT).show();
-
                 }
             });
         }
-
     }
 
 
@@ -213,11 +173,8 @@ public class FotoPublic extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 chekCameraPermission();
                 dialog.dismiss();
-
             }
         });
-
-
         builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -225,16 +182,12 @@ public class FotoPublic extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
-
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 dialog.dismiss();
             }
         });
-
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -260,7 +213,6 @@ public class FotoPublic extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
             openCamera();
-
         }
     }
 
@@ -268,9 +220,8 @@ public class FotoPublic extends AppCompatActivity {
     //открыть камеру начало+
     private void openCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getPackageManager()) != null) {     // делаю кастом
             startActivityForResult(intent, CAMERA_PICTURE_REQUEST_CODE);
-
         }
     }
 
@@ -291,7 +242,6 @@ public class FotoPublic extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_GALLERY_CODE && resultCode == Activity.RESULT_OK) {
             if (data == null || data.getData() == null)
                 return;
-
             try {
                 filePath = data.getData();
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
@@ -317,11 +267,11 @@ public class FotoPublic extends AppCompatActivity {
 
 
     private void clearAll() {
-        if (imageModelArrayList != null){
+        if (imageModelArrayList != null) {
 
             imageModelArrayList.clear();
 
-            if (recyclerImageAdapter != null){
+            if (recyclerImageAdapter != null) {
                 recyclerImageAdapter.notifyDataSetChanged();
             }
         }

@@ -37,7 +37,7 @@ public class AllTests extends AppCompatActivity {
     addTestadapter AdapterCustomTest;    // прописываем адаптер
     ArrayList<testModel> list2;   //  сама схема (короткая)
 
-    TextView startbasictest, test2;
+    TextView startbasictest;
     Button creattestbtn;
 
     private SharedPreferences Oneraz;
@@ -65,9 +65,7 @@ public class AllTests extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
                     //    String documentId = dataSnapshot.get();
-
                     testModel add_test_shema = dataSnapshot.getValue(testModel.class);
                     list2.add(add_test_shema);
                 }
@@ -99,31 +97,17 @@ public class AllTests extends AppCompatActivity {
             }
         });
 
-        test2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Oneraz1 == 3) {
-                    Toast.makeText(AllTests.this, R.string.testhasalreadypassed, Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        Intent intent = new Intent(AllTests.this, LoadingQuestver2.class);
-                        startActivity(intent);
-                        finish();
-
-                    } catch (Exception e) {
-                        //empty
-                    }
-                }
-            }
-        });
 
 
         creattestbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Oneraz1 == 3) {
-                    Toast.makeText(AllTests.this, R.string.testhasalreadypassed, Toast.LENGTH_SHORT).show();
-                } else {
+                if (Oneraz1 == 0) {
+                    Toast.makeText(AllTests.this,"Сначала пройди базовый тест", Toast.LENGTH_SHORT).show();
+                }else if (Oneraz1 == 1){
+                    Toast.makeText(AllTests.this,"Молодец что прошла базовый тест. Но доп. платные тесты доступны с 3 уровня", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     try {
                         Intent intent = new Intent(AllTests.this, creatTest.class);
                         startActivity(intent);
@@ -140,7 +124,6 @@ public class AllTests extends AppCompatActivity {
 
     private void hooks() {
         startbasictest = findViewById(R.id.startbasictest);
-        test2 = findViewById(R.id.test2);
         creattestbtn = findViewById(R.id.creattestbtn);
         CustomTestRv = findViewById(R.id.CustomTestRv);
     }

@@ -1,4 +1,4 @@
-package team.diamond.kaizer.foto;
+package team.diamond.kaizer.foto2;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -14,7 +14,7 @@ public class NewActivity extends AppCompatActivity {
 
 
     private ImageView fullImageView;
-    private Button download,share;
+//    private Button download,share;
 
 
     @Override

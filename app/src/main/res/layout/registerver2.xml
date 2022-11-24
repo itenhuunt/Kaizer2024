@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/katebackg"
+    android:orientation="vertical"
     tools:context=".Register">
 
 
@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/topBar"
@@ -28,8 +28,8 @@
                 <ImageView
                     android:id="@+id/profile"
                     android:layout_width="50dp"
-                    android:layout_margin="10dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     app:srcCompat="@drawable/house" />
 
                 <TextView
@@ -45,22 +45,22 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/r_phonetxt"
+                android:id="@+id/r_nametxt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/round_back_white_10"
-                android:hint="Email или телефон"
-                android:inputType="text"
+                android:hint="вымышленное имя"
+                android:inputType="textPersonName"
                 android:maxLines="1"
                 android:paddingStart="20dp"
                 android:paddingEnd="0dp"
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/r_emailtxt"
+                android:id="@+id/r_passwtxt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
@@ -69,21 +69,7 @@
                 android:background="@drawable/round_back_white_10"
                 android:hint="пароль"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/r_nametxt"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/round_back_white_10"
-                android:hint="псевдоним"
-                android:inputType="text"
                 android:maxLines="1"
                 android:paddingStart="20dp"
                 android:paddingEnd="0dp"
@@ -100,10 +86,10 @@
                     android:id="@+id/r_registredBtn"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/round_back_theeme_1000"
-                    android:text="Register now"
+                    android:text="@string/registrarion"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 

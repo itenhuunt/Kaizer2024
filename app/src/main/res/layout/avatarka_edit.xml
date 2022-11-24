@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".avatarka.AvatarkaEdit">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="-70dp"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/imageAva"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btn_upload"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="16dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_back_theeme_1000"
+        android:padding="10dp"
+        android:text="загрузить"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addAva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_back_theeme_1000"
+        android:padding="10dp"
+        android:text="выбрать фото"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/addFoto2"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_toRightOf="@+id/downloadFoto"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        app:srcCompat="@drawable/plus" />-->
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/downloadFoto"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:layout_toRightOf="@+id/addFoto"-->
+<!--        app:srcCompat="@drawable/downarrow2" />-->
+
+
+</RelativeLayout>

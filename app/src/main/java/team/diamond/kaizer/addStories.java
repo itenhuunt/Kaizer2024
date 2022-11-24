@@ -1,5 +1,6 @@
 package team.diamond.kaizer;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
@@ -10,17 +11,28 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 
+import team.diamond.kaizer.foto.FotoPublic;
+
 public class addStories extends AppCompatActivity {
+
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseRefBalanceInf;
+    int score_gold = 1;
 
     LinearLayout save_stories, save_stories2;
     EditText editTextTextMultiLine;
@@ -40,6 +52,9 @@ public class addStories extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_stories);
+
+        //init database
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
 
         user_name_shared_preferences = getSharedPreferences("teen_pref", MODE_PRIVATE); //обяъвляем приватный режим + прописываем ИМЯ в xml (.xml так и будет называться) + приватный режим
@@ -61,17 +76,36 @@ public class addStories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveStoriesClick2();
+
             }
         });
 
 
     }
 
+    private void addPlusOneBalance() {
+        //загрузка баланса
+        databaseRefBalanceInf = firebaseDatabase.getReference("users").child(inkognito).child("balance"); // вариант 3  типо прописали ссылку + родительский католог : что напротив него написано
+        //  firebase +1
+        databaseRefBalanceInf.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                Integer infLvl = currentData.getValue(Integer.class);
+                currentData.setValue(infLvl + 1);
+                return Transaction.success(currentData);
+            }
 
-    //_________________________________________________________________________________________________________________________
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+            }
+        });
+    }
+
 
     //команда сохранить рассказ
     private void saveStoriesClick() {
+
 
         final String myStoriesEdTxt = editTextTextMultiLine.getText().toString();
         if (myStoriesEdTxt.isEmpty()) {
@@ -91,7 +125,7 @@ public class addStories extends AppCompatActivity {
                     Date = simpleDateFormat.format(calendar.getTime());
 
                     databaseReference.child("рассказы маленьких сучек").child(inkognito).child(Date).setValue(myStoriesEdTxt);
-
+                    addPlusOneBalance();
 
                     Toast.makeText(addStories.this, R.string.download, Toast.LENGTH_SHORT).show();
 
@@ -137,7 +171,6 @@ public class addStories extends AppCompatActivity {
 
 
                     Toast.makeText(addStories.this, R.string.download, Toast.LENGTH_SHORT).show();
-
                     editTextTextMultiLine.setText("");  // очищаем поле editText
 
                 }

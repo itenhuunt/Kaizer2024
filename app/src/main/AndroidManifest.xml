@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kaizer"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Help_standart"
+            android:exported="false" />
         <activity
             android:name=".Register"
             android:exported="true">
@@ -52,10 +54,13 @@
             android:name=".foto.FotoPublic"
             android:exported="false" />
         <activity
-            android:name=".foto.showFoto"
+            android:name=".foto2.NewActivity"
             android:exported="false" />
         <activity
-            android:name=".foto.NewActivity"
+            android:name=".foto.NewActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".avatarka.AvatarkaEdit"
             android:exported="false" />
         <activity
             android:name=".addStories"
@@ -84,6 +89,19 @@
         <activity
             android:name=".creatTest.creatTest"
             android:exported="false" />
+
+
+        <activity
+            android:name=".foto2.foto_paid2"
+            android:exported="false" />
+        <activity
+            android:name=".foto1.foto_free"
+            android:exported="false" />
+        <activity
+            android:name=".foto1.NewActivityFree"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>

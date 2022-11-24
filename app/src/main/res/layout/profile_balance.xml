@@ -112,6 +112,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/x10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/balance"
@@ -139,8 +140,76 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/x20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/x10"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/arrowred" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView2"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/activated" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/fgjf"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/flypaperdance" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/fg2jf"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/magstripe" />
+
+
+    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/you_payment_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/x20"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/you_payment_card_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="здесь будет номер карты или крипты"
+            android:textColor="@color/katebtnreg"
+            android:textSize="21sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/requestpayment"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"
@@ -150,8 +219,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/round_back_ver2">
-
-
 
 
         <TextView

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,14 +29,14 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    app:srcCompat="@drawable/house" />
+                    app:srcCompat="@drawable/test2" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
-                    android:text="Вход"
+                    android:text="Тесты"
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 
@@ -53,49 +53,34 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/round_back_white_10"
                 android:gravity="center"
-                android:text="Start basic test"
+                android:text="Базовый тест"
                 android:textColor="@color/black" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/CustomTestRv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/test2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/round_back_white_10"
-                android:gravity="center"
-                android:text="test2"
-                android:textColor="@color/black" />
-
-
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/creattestbtn"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/round_back_theeme_1000"
-                    android:text="@string/creattest"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+            </androidx.recyclerview.widget.RecyclerView>
 
-            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/creattestbtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_back_theeme_1000"
+        android:text="@string/focus"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</RelativeLayout>
