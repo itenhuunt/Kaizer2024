@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,7 @@ import team.diamond.kaizer.job.job;
 import team.diamond.kaizer.otvetTest.otvetTestBasic;
 import team.diamond.kaizer.startTest.AllTests;
 import team.diamond.kaizer.startTest.LoadingQuest;
+import team.diamond.kaizer.storyCustom.storyCustom;
 
 public class kaizerActivity extends AppCompatActivity {
 
@@ -34,6 +36,7 @@ public class kaizerActivity extends AppCompatActivity {
 
     Button answerQuestion;
     ImageView profileImg;
+    LottieAnimationView animationView2;
 
     LinearLayout basictest, readStories, add, job, recentlyJoined;
     ProgressDialog progressDialog;
@@ -148,6 +151,19 @@ public class kaizerActivity extends AppCompatActivity {
             }
         });
 
+        animationView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(kaizerActivity.this, storyCustom.class);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    //empty
+                }
+            }
+        });
+
 
     }
 
@@ -184,6 +200,7 @@ public class kaizerActivity extends AppCompatActivity {
         readStories = findViewById(R.id.readStories);
         add = findViewById(R.id.add);
         recentlyJoined = findViewById(R.id.recentlyJoined);
+        animationView2 = findViewById(R.id.animationView2);
 
     }
 

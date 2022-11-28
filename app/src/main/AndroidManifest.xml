@@ -100,6 +100,9 @@
         <activity
             android:name=".foto1.NewActivityFree"
             android:exported="false" />
+        <activity
+            android:name=".storyCustom.storyCustom"
+            android:exported="false" />
 
 
     </application>

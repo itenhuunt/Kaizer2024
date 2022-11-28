@@ -70,7 +70,7 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
     private static final int PICK_image_Request = 1;
 
     private EditText mEditTextFileName;
-    private ImageView prewImage, addImage;
+    private ImageView prewImage, addImage, downloadFoto;
     private ProgressBar mProgressBar;
 
     private Uri mImageUri;
@@ -158,7 +158,7 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
             @Override
             public void onClick(View v) {
                 openFileChooser();
-                uploadFile2();
+
 
             }
         });
@@ -171,6 +171,13 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
             }
         });
 
+
+        downloadFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadFile2();
+            }
+        });
 
     }
     //______________________________
@@ -386,6 +393,7 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
         prewImage = findViewById(R.id.prewImage);
         mProgressBar = findViewById(R.id.progress_bar);
         paidAlbumeRv = findViewById(R.id.paidAlbumeRv);
+        downloadFoto = findViewById(R.id.downloadFoto);
 
     }
 

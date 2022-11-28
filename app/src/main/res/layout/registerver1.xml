@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/katebackg"
+    tools:context=".Register">
+
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/kate"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/house" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:text="Вход"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/man" />
+
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bangers"
+            android:text="Kaizer"
+            android:textColor="@color/white"
+            android:textSize="27sp" />
+
+
+        <TextView
+            android:id="@+id/textView564"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:text="указать 2 строчки версия / либо название редактировать / + сделатьчтобы аву можно было всегда отредактровать в случае чего"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/r_nametxt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_back_white_10"
+            android:hint="вымышленное имя"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/r_passwtxt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_back_white_10"
+            android:hint="пароль"
+            android:inputType="textPassword"
+
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/r_registredBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/round_back_theeme_1000"
+                android:text="@string/registrarion"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
