@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".storyCustom.storyCustom">
+    tools:context=".storyCustom">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -96,15 +95,14 @@
 <!--        android:textStyle="bold" />-->
 
 
-
     <ImageView
         android:id="@+id/addStory"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_alignParentRight="true"
         app:srcCompat="@drawable/downarrow2" />
 
 

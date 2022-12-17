@@ -30,78 +30,66 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".startTest.startTest"
-            android:exported="false" />
-        <activity
-            android:name=".startTest.startTestver2"
+            android:name=".startTest"
             android:exported="false" />
         <activity
             android:name=".kaizerActivity"
             android:exported="true" />
         <activity
-            android:name=".startTest.LoadingQuest"
-            android:exported="true" />
-        <activity
-            android:name=".startTest.LoadingQuestver2"
-            android:exported="true" />
-        <activity
-            android:name=".otvetTest.otvetTestBasic"
+            android:name=".LoadingQuest"
             android:exported="true" />
         <activity
             android:name=".profileId"
             android:exported="false" />
         <activity
-            android:name=".foto.FotoPublic"
+            android:name=".FotoPublic"
             android:exported="false" />
         <activity
-            android:name=".foto2.NewActivity"
+            android:name=".NewActivity"
             android:exported="false" />
         <activity
-            android:name=".foto.NewActivity2"
+            android:name=".NewActivity2"
             android:exported="false" />
         <activity
-            android:name=".avatarka.AvatarkaEdit"
+            android:name=".AvatarkaEdit"
             android:exported="false" />
         <activity
             android:name=".addStories"
             android:exported="false" />
         <activity
-            android:name=".otvetTest.youOtvetTest"
+            android:name=".youOtvetTest"
             android:exported="false" />
         <activity
-            android:name=".storiesFullShema.readStories"
+            android:name=".readStories"
             android:exported="false" />
         <activity
-            android:name=".job.job"
+            android:name=".job"
             android:exported="false" />
         <activity
-            android:name=".job.jobAdd"
+            android:name=".jobAdd"
             android:exported="false" />
         <activity
-            android:name=".allusers.AllUsers"
+            android:name=".AllUsers"
             android:exported="false" />
         <activity
-            android:name=".profile.profileBalance"
+            android:name=".profileBalance"
             android:exported="false" />
         <activity
-            android:name=".startTest.AllTests"
-            android:exported="false" />
-        <activity
-            android:name=".creatTest.creatTest"
+            android:name=".AllTests"
             android:exported="false" />
 
 
         <activity
-            android:name=".foto2.foto_paid2"
+            android:name=".foto_paid2"
             android:exported="false" />
         <activity
-            android:name=".foto1.foto_free"
+            android:name=".foto_free"
             android:exported="false" />
         <activity
-            android:name=".foto1.NewActivityFree"
+            android:name=".MemoryData$NewActivityFree"
             android:exported="false" />
         <activity
-            android:name=".storyCustom.storyCustom"
+            android:name=".storyCustom"
             android:exported="false" />
 
 

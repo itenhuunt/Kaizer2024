@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import team.diamond.kaizer.startTest.AllTests;
-
 public class Help_standart extends AppCompatActivity {
 
     @Override

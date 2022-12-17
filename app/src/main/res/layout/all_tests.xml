@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/katebackg"
     android:orientation="vertical"
-    tools:context=".startTest.AllTests">
+    tools:context=".AllTests">
 
     <ScrollView
         android:layout_width="match_parent"

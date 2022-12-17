@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".foto2.foto_paid2">
+    tools:context=".foto_paid2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -107,19 +107,6 @@
     </ScrollView>
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addpaidalbume"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/round_back_theeme_1000"
-        android:text="@string/paidfoto"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
-
     <ImageView
         android:id="@+id/addImage"
         android:layout_width="40dp"
@@ -149,5 +136,19 @@
         android:layout_marginBottom="10dp"
         android:layout_toRightOf="@+id/prewImage"
         app:srcCompat="@drawable/downarrow2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addpaidalbume"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@+id/downloadFoto"
+        android:background="@drawable/round_back_theeme_1000"
+        android:text="@string/paidfoto"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </RelativeLayout>

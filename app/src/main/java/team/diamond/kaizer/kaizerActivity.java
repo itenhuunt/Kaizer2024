@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -22,21 +22,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import team.diamond.kaizer.allusers.AllUsers;
-import team.diamond.kaizer.job.job;
-import team.diamond.kaizer.otvetTest.otvetTestBasic;
-import team.diamond.kaizer.startTest.AllTests;
-import team.diamond.kaizer.startTest.LoadingQuest;
-import team.diamond.kaizer.storyCustom.storyCustom;
-
 public class kaizerActivity extends AppCompatActivity {
 
     private SharedPreferences user_name_shared_preferences;
     public String inkognito;
 
-    Button answerQuestion;
     ImageView profileImg;
     LottieAnimationView animationView2;
+    TextView infAll;
 
     LinearLayout basictest, readStories, add, job, recentlyJoined;
     ProgressDialog progressDialog;
@@ -58,6 +51,8 @@ public class kaizerActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         //loading Image to profile pic
         loadImgProfile();
+        //загрузка инфы в случае чего
+        loadInfAll();
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -76,18 +71,6 @@ public class kaizerActivity extends AppCompatActivity {
             }
         });
 
-        answerQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Intent intent = new Intent(kaizerActivity.this, otvetTestBasic.class);
-                    startActivity(intent);
-                    finish();
-                } catch (Exception e) {
-                    //empty
-                }
-            }
-        });
 
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +89,7 @@ public class kaizerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Intent intent = new Intent(kaizerActivity.this, team.diamond.kaizer.storiesFullShema.readStories.class);
+                    Intent intent = new Intent(kaizerActivity.this, team.diamond.kaizer.readStories.class);
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
@@ -167,6 +150,28 @@ public class kaizerActivity extends AppCompatActivity {
 
     }
 
+    private void loadInfAll() {
+        DatabaseReference experients = database.getReference("Inf").child("all"); // вариант 3  типо прописали ссылку + родительский католог : что напротив него написано
+
+
+        // чтение из базы ValueEventListener
+        experients.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String m = snapshot.getValue(String.class);
+
+                infAll.setText(m);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
     private void loadImgProfile() {
         refImgProfile = database.getReference("users").child(inkognito).child("profile_pic"); // вариант 3  типо прописали ссылку + родительский католог : что напротив него написано
         // чтение из базы ValueEventListener   В РЕАЛЬНОМ ВРЕМЕНИ !!!  --->  addValueEventListener
@@ -192,8 +197,6 @@ public class kaizerActivity extends AppCompatActivity {
 
 
     private void hooks() {
-
-        answerQuestion = findViewById(R.id.answer_belka);
         profileImg = findViewById(R.id.profile);
         basictest = findViewById(R.id.basictest);
         job = findViewById(R.id.job);
@@ -201,6 +204,7 @@ public class kaizerActivity extends AppCompatActivity {
         add = findViewById(R.id.add);
         recentlyJoined = findViewById(R.id.recentlyJoined);
         animationView2 = findViewById(R.id.animationView2);
+        infAll = findViewById(R.id.Infall);
 
     }
 

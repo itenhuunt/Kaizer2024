@@ -18,12 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import team.diamond.kaizer.avatarka.AvatarkaEdit;
-import team.diamond.kaizer.foto1.foto_free;
-import team.diamond.kaizer.foto2.foto_paid2;
-import team.diamond.kaizer.otvetTest.youOtvetTest;
-import team.diamond.kaizer.profile.profileBalance;
-
 public class profileId extends AppCompatActivity {
 
 
@@ -72,7 +66,7 @@ public class profileId extends AppCompatActivity {
         foto_public.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(profileId.this, foto_free.class);
+                Intent intent = new Intent(profileId.this, FotoPublic.class);
                 startActivity(intent);
                 finish();
             }
@@ -82,7 +76,7 @@ public class profileId extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //       Intent intent = new Intent(profileId.this, team.diamond.kaizer.foto2.foto_paid.class);
-                Intent intent = new Intent(profileId.this, foto_paid2.class);
+                Intent intent = new Intent(profileId.this, foto_free.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,6 +1,5 @@
 package team.diamond.kaizer;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
@@ -19,13 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-
-import team.diamond.kaizer.foto.FotoPublic;
 
 public class addStories extends AppCompatActivity {
 
@@ -34,7 +30,7 @@ public class addStories extends AppCompatActivity {
     DatabaseReference databaseRefBalanceInf;
     int score_gold = 1;
 
-    LinearLayout save_stories, save_stories2;
+    LinearLayout save_stories, save_stories2, save_stories3;
     EditText editTextTextMultiLine;
 
     public String inkognito = "no_name"; // присваиваем no name по умолчанию
@@ -76,6 +72,15 @@ public class addStories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveStoriesClick2();
+
+            }
+        });
+
+        // ver 3
+        save_stories3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveStoriesClick3();
 
             }
         });
@@ -184,11 +189,54 @@ public class addStories extends AppCompatActivity {
     }
 
 
+    //команда VER3
+    private void saveStoriesClick3() {
+
+        final String myStoriesEdTxt = editTextTextMultiLine.getText().toString();
+        if (myStoriesEdTxt.isEmpty()) {
+            Toast.makeText(addStories.this, "бляя )", Toast.LENGTH_SHORT).show();
+        } else {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    // отображение времени
+                    // final String currentTimestamp = String.valueOf(System.currentTimeMillis()).substring(0, 10);
+                    //   databaseReference.child("рассказы маленьких сучек").child(inkognito).child(currentTimestamp).setValue(myStoriesEdTxt);
+
+                    //  дата  пропечатывается
+                    calendar = Calendar.getInstance();
+                    simpleDateFormat = new SimpleDateFormat("dd-MM-yy HH:mm:ss");
+                    Date = simpleDateFormat.format(calendar.getTime());
+
+                    String uploadId = databaseReference.push().getKey(); // получаем рандомный ключ
+                    databaseReference.child("Story").child(inkognito).child(uploadId).child("imageUrl").setValue(Date);
+                    databaseReference.child("Story").child(inkognito).child(uploadId).child("name").setValue(myStoriesEdTxt);
+                    //  databaseReference.child("рассказы маленьких сучек").child(inkognito).child(uploadId).child("stories").setValue(myStoriesEdTxt);
+
+                    //   databaseReference.child("рассказы маленьких сучек").child(inkognito).child(Date).setValue(myStoriesEdTxt);
+
+
+                    Toast.makeText(addStories.this, R.string.download, Toast.LENGTH_SHORT).show();
+                    editTextTextMultiLine.setText("");  // очищаем поле editText
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+    }
+
+
     // установки find
     private void find() {
 
         save_stories = findViewById(R.id.save_stories);
         save_stories2 = findViewById(R.id.save_stories2);
+        save_stories3 = findViewById(R.id.save_stories3);
         editTextTextMultiLine = findViewById(R.id.editTextTextMultiLine);
 
     }

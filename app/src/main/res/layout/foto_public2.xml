@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".foto.FotoPublic">
+    tools:context=".FotoPublic">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -124,6 +124,7 @@
         android:layout_marginBottom="10dp"
         android:layout_toRightOf="@+id/imagePreview"
         app:srcCompat="@drawable/downarrow2" />
+
 
 
 </RelativeLayout>

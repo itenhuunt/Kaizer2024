@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.profileBalance">
+    tools:context=".profileBalance">
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -151,29 +151,6 @@
 
 
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/arrowred" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView2"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/activated" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/fgjf"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/flypaperdance" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/fg2jf"
