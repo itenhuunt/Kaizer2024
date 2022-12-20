@@ -91,7 +91,7 @@
                 android:layout_marginStart="16dp"
                 android:hint="описание фото"
                 android:text=""
-                android:textColor="@color/white"
+                android:textColor="@color/katebackg"
                 android:textColorHint="@color/pg_3" />
 
             <ProgressBar
@@ -117,25 +117,6 @@
         android:layout_marginBottom="10dp"
         app:srcCompat="@drawable/plus" />
 
-    <ImageView
-        android:id="@+id/prewImage"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@+id/addImage"
-        app:srcCompat="@drawable/picture" />
-
-    <ImageView
-        android:id="@+id/downloadFoto"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@+id/prewImage"
-        app:srcCompat="@drawable/downarrow2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addpaidalbume"
@@ -144,8 +125,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_toRightOf="@+id/downloadFoto"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/round_back_theeme_1000"
         android:text="@string/paidfoto"
         android:textColor="@color/white"

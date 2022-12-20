@@ -1,14 +1,18 @@
 package team.diamond.kaizer;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,6 +28,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -65,12 +71,10 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
     //progress dialog
     ProgressDialog pd;
 
-    //____________________________ 1
-
     private static final int PICK_image_Request = 1;
 
     private EditText mEditTextFileName;
-    private ImageView prewImage, addImage, downloadFoto;
+    private ImageView addImage;
     private ProgressBar mProgressBar;
 
     private Uri mImageUri;
@@ -78,9 +82,6 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
     private StorageReference mStorageRef;
     private StorageReference mStorageRefwtf; // указываем свою то что у тебя есть нычка
     private DatabaseReference mDatabaseRef;
-
-
-    private StorageTask mUploadTask;
 
     //_____________________________   2
     private RecyclerView paidAlbumeRv;
@@ -91,6 +92,13 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
     private ValueEventListener mDBListener;
 
     private List<Upload> mUploads;
+
+
+    Uri image_uri;
+    private static final int IMAGE_PICK_CAMERA_CODE = 400;
+    private final int CAMERA_PERMISSION_REQUEST_CODE = 200;
+    private static final int IMAGE_PICK_GALLERY_CODE = 300;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +165,8 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFileChooser();
+                newVerCustomCameraOreGallery();
+
 
 
             }
@@ -172,57 +181,141 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
         });
 
 
-        downloadFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadFile2();
-            }
-        });
-
     }
+
+
     //______________________________
 
-    //описание команды выбери фото
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_image_Request);
+//    //СТАРОЕ НАЧАЛО
+//    //описание команды выбери фото
+//    private void openFileChooser() {
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(intent, PICK_image_Request);
+//    }
+//    // хз как оно относиться к кому но оно работает  начала
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PICK_image_Request && resultCode == RESULT_OK
+//                && data != null && data.getData() != null) {
+//            mImageUri = data.getData();
+//            Picasso.get().load(mImageUri).into(prewImage);
+//        }
+//    }
+//    // хз как оно относиться к кому но оно работает   конец
+//    private String getFileExtension(Uri uri) {
+//        ContentResolver cR = getContentResolver();
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        return mime.getExtensionFromMimeType(cR.getType(uri));
+//    }
+//    //СТАРОЕ КОНЕЦ
+
+    //______________________________  НОВОЕ !!!!!!!!!  _____________________________
+
+    // показать image  диалог
+    private void newVerCustomCameraOreGallery() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Select Image");
+        builder.setMessage("Please select an option");
+        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                chekCameraPermission();                                        //  проверяем разрешения + открываем камеру
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                pickFromGallery();                                        //  выбираем из Галереи
+                dialog.dismiss();
+            }
+        });
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
-    // хз как оно относиться к кому но оно работает  начала
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_image_Request && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-            Picasso.get().load(mImageUri).into(prewImage);
+    // проверка камеры +
+    private void chekCameraPermission() {
+        if (ContextCompat.checkSelfPermission(foto_paid2.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(foto_paid2.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(foto_paid2.this, new String[]{
+                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, CAMERA_PERMISSION_REQUEST_CODE);
+        } else {
+            pickFromCamera();
         }
     }
-    // хз как оно относиться к кому но оно работает   конец
 
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
+    //выбираем камеру
+    private void pickFromCamera() {
+        //Intent of picking image from device camera
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Temp Pic");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
+        //put image uri
+        image_uri = foto_paid2.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        //intent to start camera
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
-    private void uploadFile2() {
-        if (mImageUri != null) {
+    // выбрать фото из галереи+
+    private void pickFromGallery() {
+        //pick from gallery
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
+    }
+
+    //2 --- ???
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //this metod will be called after picking image from Camera or Gallery
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                //image is picked from gallery, get uri of image
+                image_uri = data.getData();
+                newCustomUpload(image_uri);
+            }
+            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                //image is picked from camera, get uri of image
+                newCustomUpload(image_uri);
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    //загружаем фото на сервер
+    private void newCustomUpload(Uri image_uri) {
+        if (image_uri != null) {
 
             StorageReference ref = mStorageRef.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
+                    + "." + ("newVersion"));
 
-            ref.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            ref.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+
                                     Handler handler = new Handler();
                                     handler.postDelayed(new Runnable() {
                                         @Override
@@ -233,6 +326,9 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
 
                                     Upload upload = new Upload(mEditTextFileName.getText().toString().trim(), uri.toString());
                                     mDatabaseRef.push().setValue(upload);
+//                                    Upload upload = new Upload(uri.toString(), uri.toString());
+//                                    mDatabaseRef.push().setValue(upload);
+                                    mEditTextFileName.setText(""); //чистим текст
                                     nora();//нычка
 
                                     Toast.makeText(foto_paid2.this, "successful upload", Toast.LENGTH_SHORT).show();
@@ -260,6 +356,56 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
 
     }
 
+//    //загрузка файла на сервер
+//    private void uploadFile2() {
+//        if (mImageUri != null) {
+//
+//            StorageReference ref = mStorageRef.child(System.currentTimeMillis()
+//                    + "." + getFileExtension(mImageUri));
+//
+//            ref.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//                                    Handler handler = new Handler();
+//                                    handler.postDelayed(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            mProgressBar.setProgress(0);
+//                                        }
+//                                    }, 5000);
+//
+//                                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(), uri.toString());
+//                                    mDatabaseRef.push().setValue(upload);
+//                                    nora();//нычка
+//
+//                                    Toast.makeText(foto_paid2.this, "successful upload", Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                            });
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(foto_paid2.this, "fail uploaded", Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+//                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+//                            mProgressBar.setProgress((int) progress);
+//
+//                        }
+//                    });
+//        } else {
+//            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
+
     //нычка
     private void nora() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
@@ -268,22 +414,22 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
         // mStorageRefwtf = FirebaseStorage.getInstance().getReference("image3/" + fileName);
         // mStorageRefwtf = FirebaseStorage.getInstance().getReference("wtf").child(inkognito + fileName);
         mStorageRefwtf = FirebaseStorage.getInstance().getReference("wtf").child(inkognito).child("paid/" + fileName);
-        mStorageRefwtf.putFile(mImageUri)
+        mStorageRefwtf.putFile(image_uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         //  binding.firebaseimage.setImageURI(null);
-                        Toast.makeText(foto_paid2.this, " ", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(foto_paid2.this, "", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(foto_paid2.this, " ", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(foto_paid2.this, " ", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-
+    //загружаем цену альбома
     private void paidalbuminf() {
         databaseReference2 = firebaseDatabase.getReference("users").child(inkognito).child("paid_album"); // вариант 3  типо прописали ссылку + родительский католог : что напротив него написано
         databaseReference2.addValueEventListener(new ValueEventListener() {
@@ -300,6 +446,7 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
         });
     }
 
+    //добавляем цену альбома
     private void addPaid() {
         //  option show dialog
         String options[] = {"Указать цену альбома"};
@@ -323,6 +470,7 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
         builder.create().show();
     }
 
+    //добавляем цену альбома - Firebase
     private void addPaid2(String key) {
         //custom dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -390,10 +538,9 @@ public class foto_paid2 extends AppCompatActivity implements ImageAdapter.OnItem
         addpaidalbume = findViewById(R.id.addpaidalbume);
         addImage = findViewById(R.id.addImage);
         mEditTextFileName = findViewById(R.id.edit_txt_file_name);
-        prewImage = findViewById(R.id.prewImage);
         mProgressBar = findViewById(R.id.progress_bar);
         paidAlbumeRv = findViewById(R.id.paidAlbumeRv);
-        downloadFoto = findViewById(R.id.downloadFoto);
+
 
     }
 

@@ -1,12 +1,19 @@
 package team.diamond.kaizer;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
@@ -15,7 +22,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,39 +52,32 @@ import team.diamond.kaizer.models.UploadFree;
 
 public class foto_free extends AppCompatActivity implements ImageAdapterFree.OnItemClickListener {
 
-    //берем имя из shared preferences
     private SharedPreferences user_name_shared_preferences;
     public String inkognito;
-    //указываем firebase
     FirebaseDatabase firebaseDatabase;
-
-    //progress dialog
-    ProgressDialog pd;
-
-    private static final int PICK_image_Request = 1;
-
-    private ImageView imagePreview, addFoto, downloadFoto;
-    private ProgressBar mProgressBar;
-
-    private Uri mImageUri;
     //указываем ссылки
-    private StorageReference mStorageRef;
-    //указываем хранилище
+    private DatabaseReference mDatabaseRef2;
     private DatabaseReference mDatabaseRef;
 
-    private StorageTask mUploadTask;
-
+    private FirebaseStorage mStorage;
+    private StorageReference mStorageRef;
+    //   база которая обновляется в реальном врмени   //  то что будет загружаться на сервер
+    private ValueEventListener mDBListener;
+    // высе что есть на листе
+    private ImageView addFoto;
+    private ProgressBar mProgressBar;
+    ProgressDialog pd;
     //_____________________________   2    отображение
     private RecyclerView RvFreeAlbume;
     private ImageAdapterFree mAdapterFree;
-    //указываем ссылки
-    private DatabaseReference mDatabaseRef2;
-    //указываем хранилище
-    private FirebaseStorage mStorage;
-    //   база которая обновляется в реальном врмени
-    private ValueEventListener mDBListener;
-    //  то что будет загружаться на сервер
     private List<UploadFree> mUploads;
+
+    Uri image_uri;
+    private static final int IMAGE_PICK_CAMERA_CODE = 400;
+    private final int CAMERA_PERMISSION_REQUEST_CODE = 200;
+    private static final int IMAGE_PICK_GALLERY_CODE = 300;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,64 +139,112 @@ public class foto_free extends AppCompatActivity implements ImageAdapterFree.OnI
         addFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFileChooser();
-
+                //выбираем галерея или фото
+                newVerCustomCameraOreGallery();
             }
         });
 
-        // кнопка выбрать изображение  начало
-        downloadFoto.setOnClickListener(new View.OnClickListener() {
+
+
+    }
+    //______________________________  НОВОЕ !!!!!!!!!  _____________________________
+
+    // показать image  диалог
+    private void newVerCustomCameraOreGallery() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Image");
+        builder.setMessage("Please select an option");
+        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                uploadFileFreeAlbum();
-
+            public void onClick(DialogInterface dialog, int which) {
+                chekCameraPermission();                                        //  проверяем разрешения + открываем камеру
+                dialog.dismiss();
             }
         });
-
-
-
-
+        builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                pickFromGallery();                                        //  выбираем из Галереи
+                dialog.dismiss();
+            }
+        });
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
-    //______________________________
-
-    //описание команды выбери фото
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_image_Request);
-    }
 
 
-    // хз как оно относиться к кому но оно работает  начала
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_image_Request && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-            Picasso.get().load(mImageUri).into(imagePreview);
+    // проверка камеры +
+    private void chekCameraPermission() {
+        if (ContextCompat.checkSelfPermission(foto_free.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(foto_free.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(foto_free.this, new String[]{
+                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, CAMERA_PERMISSION_REQUEST_CODE);
+        } else {
+            pickFromCamera();
         }
     }
-    // хз как оно относиться к кому но оно работает   конец
 
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
+    //выбираем камеру
+    private void pickFromCamera() {
+        //Intent of picking image from device camera
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Temp Pic");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
+        //put image uri
+        image_uri = foto_free.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        //intent to start camera
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
+
+    // выбрать фото из галереи+
+    private void pickFromGallery() {
+        //pick from gallery
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
+    }
+
+    //2 --- ???
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //this metod will be called after picking image from Camera or Gallery
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                //image is picked from gallery, get uri of image
+                image_uri = data.getData();
+                newCustomUpload(image_uri);
+            }
+            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                //image is picked from camera, get uri of image
+                newCustomUpload(image_uri);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
 
 
     //загружаем фото на сервер
-    private void uploadFileFreeAlbum() {
-        if (mImageUri != null) {
+    private void newCustomUpload( Uri image_uri) {
+        if (image_uri != null) {
 
             StorageReference ref = mStorageRef.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
+                    + "." + ("newVersion"));
 
-            ref.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            ref.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -237,10 +288,10 @@ public class foto_free extends AppCompatActivity implements ImageAdapterFree.OnI
     }
 
 
+
+
     private void hooks() {
-        imagePreview = findViewById(R.id.imagePreview);
         addFoto = findViewById(R.id.addFoto);
-        downloadFoto = findViewById(R.id.downloadFoto);
         mProgressBar = findViewById(R.id.progress_bar);
         RvFreeAlbume = findViewById(R.id.RvFreeAlbume);
 
@@ -256,7 +307,6 @@ public class foto_free extends AppCompatActivity implements ImageAdapterFree.OnI
     public void onWhatEverClick(int position) {
         Toast.makeText(this, "Whatever click at position" + position, Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public void onDeleteClick(int position) {
@@ -274,7 +324,6 @@ public class foto_free extends AppCompatActivity implements ImageAdapterFree.OnI
         });
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -289,5 +338,6 @@ public class foto_free extends AppCompatActivity implements ImageAdapterFree.OnI
         } catch (Exception e) {  // catch = ловить
         }
     }
+
 
 }

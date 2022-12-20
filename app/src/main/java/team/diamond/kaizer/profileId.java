@@ -66,7 +66,7 @@ public class profileId extends AppCompatActivity {
         foto_public.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(profileId.this, FotoPublic.class);
+                Intent intent = new Intent(profileId.this, foto_free.class);
                 startActivity(intent);
                 finish();
             }
@@ -76,7 +76,7 @@ public class profileId extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //       Intent intent = new Intent(profileId.this, team.diamond.kaizer.foto2.foto_paid.class);
-                Intent intent = new Intent(profileId.this, foto_free.class);
+                Intent intent = new Intent(profileId.this, foto_paid2.class);
                 startActivity(intent);
                 finish();
             }

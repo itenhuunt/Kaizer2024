@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".FotoPublic">
+    tools:context=".foto_free">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,13 +23,6 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/profile"-->
-                <!--                    android:layout_width="50dp"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_margin="10dp"-->
-                <!--                    app:srcCompat="@drawable/foto" />-->
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,7 +32,6 @@
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 
-
             </LinearLayout>
 
 
@@ -49,10 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_back_theeme_1000"
-                android:orientation="vertical">
+                android:orientation="vertical"/>
 
-
-            </androidx.recyclerview.widget.RecyclerView>
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -62,38 +51,9 @@
                 android:layout_above="@id/recyclerView"
                 android:layout_marginBottom="16dp" />
 
-            <!--            <EditText-->
-            <!--                android:id="@+id/edit_txt_file_name"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="16dp"-->
-            <!--                android:hint="описание фото"-->
-            <!--                android:text="" />-->
-
-            <!--            <ProgressBar-->
-            <!--                android:id="@+id/progress_bar"-->
-            <!--                style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_above="@id/edit_txt_file_name"-->
-            <!--                android:layout_marginBottom="16dp" />-->
-
-
         </LinearLayout>
     </ScrollView>
 
-
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/addpaidalbume"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        android:background="@drawable/round_back_theeme_1000"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textStyle="bold" />-->
 
     <ImageView
         android:id="@+id/addFoto"
@@ -104,27 +64,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         app:srcCompat="@drawable/plus" />
-
-    <ImageView
-        android:id="@+id/imagePreview"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@+id/addFoto"
-        app:srcCompat="@drawable/picture" />
-
-    <ImageView
-        android:id="@+id/downloadFoto"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@+id/imagePreview"
-        app:srcCompat="@drawable/downarrow2" />
-
 
 
 </RelativeLayout>

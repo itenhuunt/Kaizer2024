@@ -42,9 +42,6 @@
             android:name=".profileId"
             android:exported="false" />
         <activity
-            android:name=".FotoPublic"
-            android:exported="false" />
-        <activity
             android:name=".NewActivity"
             android:exported="false" />
         <activity
