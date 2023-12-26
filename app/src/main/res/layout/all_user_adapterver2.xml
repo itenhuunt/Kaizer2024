@@ -41,6 +41,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/pg_3"
                 android:text="тесты / фото / задания / lvl" />
+
+            <TextView
+                android:id="@+id/privateVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pg_3"
+                android:text="приват звонок белке" />
+
         </LinearLayout>
     </RelativeLayout>
 

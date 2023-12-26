@@ -3,7 +3,8 @@ package team.diamond.kaizer.models;
 
 public class jobModel {
 
-    String myname,job,descriptionjob, time, nameboss, reward;
+    //эти значения отображаются на сайте в firebase
+    String myname, job, descriptionjob, time, nameboss, reward;
 
     public jobModel() {
         //empty

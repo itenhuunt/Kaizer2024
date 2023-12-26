@@ -17,11 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kaizer"
         tools:targetApi="31">
+
         <activity
-            android:name=".Help_standart"
-            android:exported="false" />
-        <activity
-            android:name=".Register"
+            android:name=".Registration"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.StreamAllHere"
+            android:exported="false" />
+        <activity
+            android:name=".TrueStoryAdd"
+            android:exported="false" />
+        <activity
+            android:name=".Help_standart"
+            android:exported="false" />
         <activity
             android:name=".startTest"
             android:exported="false" />
@@ -51,15 +58,6 @@
             android:name=".AvatarkaEdit"
             android:exported="false" />
         <activity
-            android:name=".addStories"
-            android:exported="false" />
-        <activity
-            android:name=".youOtvetTest"
-            android:exported="false" />
-        <activity
-            android:name=".readStories"
-            android:exported="false" />
-        <activity
             android:name=".job"
             android:exported="false" />
         <activity
@@ -74,8 +72,6 @@
         <activity
             android:name=".AllTests"
             android:exported="false" />
-
-
         <activity
             android:name=".foto_paid2"
             android:exported="false" />
@@ -86,8 +82,13 @@
             android:name=".MemoryData$NewActivityFree"
             android:exported="false" />
         <activity
-            android:name=".storyCustom"
+            android:name=".TrueStory"
             android:exported="false" />
+
+        <activity
+            android:name=".writeGeneralChat"
+            android:exported="false" />
+
 
 
     </application>

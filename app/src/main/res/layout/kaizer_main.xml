@@ -15,12 +15,12 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/profile"
+            android:id="@+id/help"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="3dp"
-            app:srcCompat="@drawable/iconvibo" />
+            app:srcCompat="@drawable/question" />
 
         <TextView
             android:layout_width="0dp"
@@ -42,193 +42,107 @@
 
     </LinearLayout>
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBar">
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/topBar"
+        android:orientation="vertical">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/Infall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="создать  список кто был или есть" />
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/Infall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="создать  список кто был или есть" />
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
 
 
-            </RelativeLayout>
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
-
-
-                <LinearLayout
-                    android:id="@+id/recentlyJoined"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/roundedver2"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="3dp"
-                        app:srcCompat="@drawable/fire" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:paddingRight="5dp"
-                        android:text="@string/recentlyJoined" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="21dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/roundedver2"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:text="@string/more" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
+            <LinearLayout
+                android:id="@+id/recentlyJoined"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundedver2"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/workImg"
+                    android:id="@+id/imageView"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginLeft="3dp"
                     android:layout_weight="1"
                     android:paddingLeft="3dp"
-                    app:srcCompat="@drawable/work" />
+                    app:srcCompat="@drawable/fire" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="3dp"
-                    android:layout_toRightOf="@+id/workImg"
-                    android:text="@string/seejob" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/more" />
-
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Запросить доступ" />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/fire"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/fire" />
-
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/recentlyJoined" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/man"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/man" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="Последние выплаты"
-                    android:textColor="@color/katebackg" />
-
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/roundedver2"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="задания от 300+" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:text="@string/more" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
 
-            </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom"
+            android:layout_below="@+id/topBar"
+            android:orientation="vertical">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/generalChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                />
+
 
         </LinearLayout>
 
 
-    </ScrollView>
+    </LinearLayout>
+
 
     <LinearLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -322,17 +236,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/add"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/profile"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                app:srcCompat="@drawable/question" />
+                app:srcCompat="@drawable/iconvibo" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -357,7 +272,17 @@
         android:layout_marginBottom="-20dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/cube" />
+        app:lottie_rawRes="@raw/daimond" />
 
+
+    <ImageView
+        android:id="@+id/writeGeneralChat"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@id/bottom"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@drawable/comment" />
 
 </RelativeLayout>
